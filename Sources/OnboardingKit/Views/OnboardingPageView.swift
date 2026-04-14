@@ -15,11 +15,14 @@ public struct OnboardingPageView<Content: View>: View {
     }
     
     public var body: some View {
-        VStack{
+        VStack {
+            Spacer()
             page.content
+            Spacer()
             Text(page.title)
-            Text(page.description)
+            if let description = page.description {
+                Text(description)
+            }
         }
     }
 }
-

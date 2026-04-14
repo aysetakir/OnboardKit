@@ -9,10 +9,10 @@ import SwiftUI
  
 public struct OnboardingPage<Content: View> {
     public var title: String
-    public var description: String
-    public var content: Content
+    public var description: String?
+    public var content: Content?
     
-    public init(title: String, description: String, content: Content) {
+    public init(title: String, description: String? = nil, content: Content) {
         self.title = title
         self.description = description
         self.content = content
