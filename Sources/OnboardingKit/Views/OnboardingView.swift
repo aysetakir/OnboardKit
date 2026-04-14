@@ -38,7 +38,4 @@ public struct OnboardingView<Content: View>: View {
         }
     }
 }
-
-#Preview {
-    OnboardingView()
-}
+ 
