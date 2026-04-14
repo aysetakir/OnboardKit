@@ -16,10 +16,6 @@ public struct OnboardingPageView<Content: View>: View {
             Text(page.title)
             Text(page.description)
         }
-        
     }
 }
 
-#Preview {
-    OnboardingPageView()
-}

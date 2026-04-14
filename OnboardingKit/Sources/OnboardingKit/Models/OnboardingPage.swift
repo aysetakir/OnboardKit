@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-
-@available(iOS 16.0, macOS 10.15, *)
+ 
 public struct OnboardingPage<Content: View> {
     public var title: String
     public var description: String
