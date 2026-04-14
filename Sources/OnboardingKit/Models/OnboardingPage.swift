@@ -13,4 +13,8 @@ public struct OnboardingPage<Content: View> {
     public var content: Content
 }
 
-
+public init(title: String, description: String, content: Content) {
+    self.title = title
+    self.description = description
+    self.content = content
+}
