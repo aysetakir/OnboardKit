@@ -10,6 +10,10 @@ import SwiftUI
 public struct OnboardingPageView<Content: View>: View {
     public let page: OnboardingPage<Content>
     
+    public init(page: OnboardingPage<Content>) {
+        self.page = page
+    }
+    
     public var body: some View {
         VStack{
             page.content
