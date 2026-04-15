@@ -12,8 +12,9 @@ public struct OnboardingView<Content: View>: View {
     public var pages: [OnboardingPage<Content>]
     public var buttonColor: Color = .accentColor
     public var buttonBackgroundColor: Color = .accentColor
+    public var indicatorColor: Color = .accentColor
     public var onFinish: () -> Void
-     
+    
     public init(pages: [OnboardingPage<Content>],onFinish: @escaping () -> Void) {
         self.pages = pages
         self.onFinish = onFinish
@@ -27,26 +28,28 @@ public struct OnboardingView<Content: View>: View {
         currentIndex == 0
     }
     
-   public var body: some View {
-      
+    public var body: some View {
+        
         VStack{
             OnboardingPageView(page: pages[currentIndex])
             Spacer()
+            PageIndicatorView(pageCount: pages.count, currentIndex: currentIndex)
+                .indicatorColor(indicatorColor)
             HStack {
                 Button {
                     previousPage()
                 } label: {
                     Image(systemName: "chevron.left")
-                        .foregroundStyle(buttonColor) 
+                        .foregroundStyle(buttonColor)
                         .padding()
                         .background(buttonBackgroundColor)
                         .clipShape(.circle)
                 }
                 .opacity(isFirstPage ? 0 : 1)
                 .disabled(isFirstPage)
-
+                
                 Spacer()
-
+                
                 Button {
                     nextPage()
                 } label: {
@@ -70,7 +73,7 @@ public struct OnboardingView<Content: View>: View {
                 .padding(.trailing, 20)
             }
         }
-    
+        
     }
     func nextPage() {
         if currentIndex < pages.count - 1 {
@@ -97,7 +100,10 @@ public struct OnboardingView<Content: View>: View {
         view.buttonBackgroundColor = color
         return view
     }
+    
+    func indicatorColor(_ color: Color) -> OnboardingView<Content> {
+        var view = self
+        view.indicatorColor = color
+        return view
+    }
 }
- 
-
-
