@@ -1,5 +1,5 @@
-
 # OnboardingKit
+
 A lightweight, customizable, and easy-to-integrate onboarding library for SwiftUI apps.
 
 ## Requirements
@@ -55,10 +55,34 @@ struct ContentView: View {
 
 ## Customization
 
+### Colors
+
+Customize button and indicator colors using modifiers:
+
+```swift
+OnboardingView(pages: [...], onFinish: { })
+    .buttonColor(.orange)
+    .buttonBackgroundColor(.clear)
+    .indicatorColor(.yellow)
+```
+
+### Optional Description
+
+`description` is optional — you can omit it:
+
+```swift
+OnboardingPage(
+    title: "Welcome",
+    content: Image(systemName: "star.fill")
+)
+```
+
+### Custom Content
+
 The `content` parameter is generic, so you can pass any SwiftUI View:
 
 ```swift
-// Custom illustration
+// Custom view
 OnboardingPage(
     title: "Pick Your Interests",
     description: "Select the categories you love",
@@ -71,15 +95,5 @@ OnboardingPage(
     description: "Bring your onboarding to life",
     content: LottieView(name: "welcome")
 )
-
-// Any SwiftUI View
-OnboardingPage(
-    title: "Custom",
-    description: "Use anything you want",
-    content: MyCustomView()
-)
 ```
 
-## License
-
-MIT
