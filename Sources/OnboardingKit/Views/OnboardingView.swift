@@ -10,13 +10,15 @@ import SwiftUI
 public struct OnboardingView<Content: View>: View {
     @State var currentIndex = 0
     public var pages: [OnboardingPage<Content>]
+    public var buttonColor: Color = .accentColor
+    public var buttonBackgroundColor: Color = .accentColor
     public var onFinish: () -> Void
-    
-    
-    public init(pages: [OnboardingPage<Content>], onFinish: @escaping () -> Void) {
+     
+    public init(pages: [OnboardingPage<Content>],onFinish: @escaping () -> Void) {
         self.pages = pages
         self.onFinish = onFinish
     }
+    
     
     private var isLastPage: Bool {
         currentIndex == pages.count - 1
@@ -35,7 +37,10 @@ public struct OnboardingView<Content: View>: View {
                     previousPage()
                 } label: {
                     Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(buttonColor) 
+                        .padding()
+                        .background(buttonBackgroundColor)
+                        .clipShape(.circle)
                 }
                 .opacity(isFirstPage ? 0 : 1)
                 .disabled(isFirstPage)
@@ -46,7 +51,10 @@ public struct OnboardingView<Content: View>: View {
                     nextPage()
                 } label: {
                     Image(systemName: "chevron.right")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(buttonColor)
+                        .padding()
+                        .background(buttonBackgroundColor)
+                        .clipShape(.circle)
                 }
             }
             .padding(.horizontal, 24)
@@ -77,6 +85,19 @@ public struct OnboardingView<Content: View>: View {
             currentIndex -= 1
         }
     }
+    
+    func buttonColor(_ color: Color) -> OnboardingView<Content> {
+        var view = self
+        view.buttonColor = color
+        return view
+    }
+    
+    func buttonBackgroundColor(_ color: Color) -> OnboardingView<Content> {
+        var view = self
+        view.buttonBackgroundColor = color
+        return view
+    }
 }
  
+
 
