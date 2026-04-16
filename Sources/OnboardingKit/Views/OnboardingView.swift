@@ -89,19 +89,19 @@ public struct OnboardingView<Content: View>: View {
         }
     }
     
-    func buttonColor(_ color: Color) -> OnboardingView<Content> {
+    public func buttonColor(_ color: Color) -> OnboardingView<Content> {
         var view = self
         view.buttonColor = color
         return view
     }
     
-    func buttonBackgroundColor(_ color: Color) -> OnboardingView<Content> {
+    public func buttonBackgroundColor(_ color: Color) -> OnboardingView<Content> {
         var view = self
         view.buttonBackgroundColor = color
         return view
     }
     
-    func indicatorColor(_ color: Color) -> OnboardingView<Content> {
+    public func indicatorColor(_ color: Color) -> OnboardingView<Content> {
         var view = self
         view.indicatorColor = color
         return view
