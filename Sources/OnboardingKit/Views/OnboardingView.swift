@@ -11,7 +11,7 @@ public struct OnboardingView<Content: View>: View {
     @State var currentIndex = 0
     public var pages: [OnboardingPage<Content>]
     public var buttonColor: Color = .accentColor
-    public var buttonBackgroundColor: Color = .accentColor
+    public var buttonBackgroundColor: Color = .clear
     public var indicatorColor: Color = .accentColor
     public var onFinish: () -> Void
     
@@ -31,10 +31,21 @@ public struct OnboardingView<Content: View>: View {
     public var body: some View {
         
         VStack{
-            OnboardingPageView(page: pages[currentIndex])
+            
+            TabView(selection: $currentIndex) {
+                ForEach(0..<pages.count, id: \.self) { index in
+                    OnboardingPageView(page: pages[index])
+                        .tag(index)
+                }
+            }
+#if os(iOS)
+            .tabViewStyle(.page(indexDisplayMode: .never))
+#endif
+            
             Spacer()
             PageIndicatorView(pageCount: pages.count, currentIndex: currentIndex)
                 .indicatorColor(indicatorColor)
+            
             HStack {
                 Button {
                     previousPage()
@@ -50,26 +61,37 @@ public struct OnboardingView<Content: View>: View {
                 
                 Spacer()
                 
-                Button {
-                    nextPage()
-                } label: {
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(buttonColor)
-                        .padding()
-                        .background(buttonBackgroundColor)
-                        .clipShape(.circle)
+                if isLastPage {
+                    Button {
+                        nextPage()
+                    } label: {
+                        Text("Başla")
+                            .foregroundStyle(buttonColor)
+                    }
+                } else {
+                    Button {
+                        nextPage()
+                    } label: {
+                        Image(systemName: "chevron.right")
+                            .foregroundStyle(buttonColor)
+                            .padding()
+                            .background(buttonBackgroundColor)
+                            .clipShape(.circle)
+                    }
+                    
                 }
+                
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 20)
         }
         .overlay(alignment: .topTrailing) {
             if !isLastPage {
-                Button("Skip"){
+                Button("Atla"){
                     onFinish()
                 }
                 .font(.subheadline)
-                .foregroundStyle(.gray)
+                .foregroundStyle(buttonColor)
                 .padding(.trailing, 20)
             }
         }
